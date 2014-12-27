@@ -1,25 +1,25 @@
 describe("EventEmitter", function() {
     var ee = new EventEmitter();
     
-    it("has a _events property", function() {
+    it("has a .regexs property", function() {
+        expect(EventEmitter.regexs).toBeDefined();
+        expect(EventEmitter.regexs).toEqual({});
+    });
+    
+    it("has a #_events property", function() {
         expect(ee._events).toBeDefined();
         expect(ee._events).toEqual({});
     });
-
-    it("has a _regexs property", function() {
-        expect(ee._regexs).toBeDefined();
-        expect(ee._regexs).toEqual({});
-    });
     
     
-    describe("#execListener", function() {
+    describe(".execListener", function() {
         
         describe("with functions", function() {
             var cb;
             
             beforeEach(function() {
                 cb = jasmine.createSpy();
-                ee.execListener(cb, ["hello", "world"]);
+                EventEmitter.execListener(cb, ["hello", "world"]);
             });
             
             it("executes the listeners", function() {
@@ -37,7 +37,7 @@ describe("EventEmitter", function() {
             
             beforeEach(function() {
                 cb = jasmine.createSpyObj("cb", ["handleEvent"]);
-                ee.execListener(cb, ["hello", "world"]);
+                EventEmitter.execListener(cb, ["hello", "world"]);
             });
             
             it("executes the handleEvent methods of the listeners", function() {
@@ -52,15 +52,15 @@ describe("EventEmitter", function() {
     });
     
     
-    describe("#eventRegex", function() {
+    describe(".eventRegex", function() {
         it("returns a RegExp", function() {
-            var regex = ee.eventRegex("scope:*");
+            var regex = EventEmitter.eventRegex("scope:*");
             
             expect(regex).toEqual(jasmine.any(RegExp));
         });
         
         it("returns the right RegExp", function() {
-            var regex = ee.eventRegex("scope:*");
+            var regex = EventEmitter.eventRegex("scope:*");
             var right = /scope:.*/;
             
             expect(regex.toString()).toEqual(right.toString());
@@ -69,25 +69,113 @@ describe("EventEmitter", function() {
     
     
     describe("#emit", function() {
-        it("fires simple events");
-        it("fires wildcard events");
-        it("passes all the arguments to the listeners and passes the original event as last one");
+        beforeEach(function() {
+            ee.removeAllListeners();
+        });
+        
+        it("fires simple events", function() {
+            var cb = jasmine.createSpy();
+            ee.on("event", cb);
+            
+            expect(cb).not.toHaveBeenCalled();
+            ee.emit("event");
+            expect(cb.calls.count()).toBe(1);
+        });
+        
+        it("fires wildcard events correctly", function() {
+            var cb1 = jasmine.createSpy();
+            var cb2 = jasmine.createSpy();
+            ee.on("scope:event", cb1);
+            ee.on("other-event", cb2);
+            
+            expect(cb1).not.toHaveBeenCalled();
+            ee.emit("scope:*");
+            expect(cb1.calls.count()).toBe(1);
+            expect(cb2).not.toHaveBeenCalled();
+        });
+        
+        it("matches wildcard listeners correctly", function() {
+            var cb1 = jasmine.createSpy();
+            var cb2 = jasmine.createSpy();
+            ee.on("scope:*", cb1);
+            ee.on("scope:other-event", cb2);
+            
+            expect(cb1).not.toHaveBeenCalled();
+            ee.emit("scope:event");
+            expect(cb1.calls.count()).toBe(1);
+            expect(cb2).not.toHaveBeenCalled();
+        });
+        
+        it("passes all the arguments to the listeners and passes the original event as last one", function() {
+            var cb = jasmine.createSpy();
+            ee.on("event", cb);
+            ee.emit("event", "hello", "world");
+            
+            expect(cb).toHaveBeenCalledWith("hello", "world", "event");
+        });
     });
     
     
     describe("#on", function() {
-        it("is an alias of #addListener");
-        it("is an alias of #addEventListener");
-        it("adds an array to the _events if there isn't one for the current event");
-        it("adds listeners to the _events");
-        it("adds RegExps to the _regexs");
+        beforeEach(function() {
+            ee.removeAllListeners();
+        });
+        
+        it("is an alias of #addListener", function() {
+            expect(ee.on).toBe(ee.addListener);
+        });
+        
+        it("is an alias of #addEventListener", function() {
+            expect(ee.on).toBe(ee.addListener);
+        });
+        
+        it("adds an array to the _events if there isn't one for the current event", function() {
+            ee.removeAllListeners("event");
+            ee.on("event", function(){/* Stub */});
+            
+            console.log(ee._events.event instanceof Array);
+            console.log(ee._events.event);
+            expect(ee._events.event).toEqual(jasmine.any(Array));
+        });
+        
+        it("adds listeners to the _events", function() {
+            var cb = function() { /*stub */};
+            ee.on("event", cb);
+            
+            expect(ee._events.event.indexOf(cb)).toBeGreaterThan(-1);
+        });
+        
+        it("adds RegExps to the _regexs", function() {
+            ee.on("event", function() {/* Stub */});
+            
+            expect(ee._regexs.event).toBeDefined();
+            expect(ee._regexs.event.toString()).toBe(/event/.toString());
+        });
     });
     
     
     describe("#once", function() {
-        it("is an alias of #addOnceListener");
-        it("adds a listener to the _events");
-        it("executes the listener only once when the event is fired");
+        it("is an alias of #addOnceListener", function() {
+            expect(ee.once).toBe(ee.addOnceListener);
+        });
+        
+        it("adds a listener to the _events", function() {
+            ee.removeAllListeners();
+            ee.once("event", function() {/* Stub */});
+            
+            expect(ee._events.event.length).toBe(1);
+        });
+        
+        it("executes the listener only once when the event is fired", function() {
+            ee.removeAllListeners();
+            var cb = jasmine.createSpy();
+            ee.once("event", cb);
+            
+            expect(cb).not.toHaveBeenCalled();
+            ee.emit("event");
+            ee.emit("event");
+            expect(cb.calls.count()).toBe(1);
+        });
     });
     
     
