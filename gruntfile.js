@@ -29,6 +29,7 @@ module.exports = function(grunt) {
     
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-run");
+    grunt.loadNpmTasks("grunt-bump");
     grunt.loadNpmTasks("grunt-contrib-watch");
     
     grunt.registerTask("min", ["uglify"]);
