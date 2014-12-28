@@ -20,7 +20,6 @@
 
     var EventEmitter = function EventEmitter() {
         this._events = {};
-        this._regexs = {};
         
         return this;
     }
