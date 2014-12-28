@@ -62,7 +62,7 @@
     var Regexs = EventEmitter.regexs = {};
     var eventRegex = EventEmitter.eventRegex = function(event) {
         if(!Regexs[event]) {
-            Regexs[event] = new RegExp(event.replace("*", ".*"));
+            Regexs[event] = new RegExp("^"+event.replace("*", ".*")+"$");
         }
         
         return Regexs[event];
@@ -77,7 +77,10 @@
      * Public API
      */
     
-    EventEmitter.prototype.emit = function(event) {
+    EventEmitter.prototype.emit =
+    EventEmitter.prototype.fire =
+    EventEmitter.prototype.trigger =
+    function(event) {
         var args = copyArray(arguments, 1);
         args.push(event);
         var regex1 = eventRegex(event);
@@ -135,6 +138,7 @@
         var func = function() {
             execListener(cb, arguments);
             count++;
+            console.log(count);
             if(count === amount) {
                 self.removeListener(event, this);
             }
@@ -169,6 +173,7 @@
                     var index = this._events[ev].indexOf(cb);
                     if(index > -1) {
                         this._events[ev].splice(index, 1);
+                        break;
                     }
                 }
             }
@@ -181,9 +186,9 @@
     EventEmitter.prototype.removeAllListeners =
     function(event) {
         if(event) {
+            var regex = eventRegex(event);
             for(var ev in this._events) {
-                var regex = eventRegex(ev);
-                if(regex.test(event)) {
+                if(regex.test(ev)) {
                     this._events[ev] = [];
                 }
             }
