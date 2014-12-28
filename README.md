@@ -85,7 +85,7 @@ __Note__: This method is only available on the `EventEmitter` object, not on its
 
 `EventEmitter.execListener()` executes a listener, `apply()`ing the `args` to it.  
 `listener` can be a function, or an object with a `handleEvent()` method. For more info about `handleEvent()`, check [this page][handleEvent] (check the 'listener' section).  
-The `this` in the listener will be set to `listener`.
+The `this` in the listener will be set to `listener`. This method is intended for internal use, but may be used publicly.
 
 ```javascript
 var listener = function(arg1, arg2){
@@ -105,6 +105,23 @@ EventEmitter.execListener(listener, ["hello", "world"]);
 //object
 EventEmitter.execListener(objectListener, ["hello", "world"]);
 ```
+
+
+### .eventRegex(string: event)
+__event__: *string*. The event name to convert to a RegExp.  
+__*return*__: *RegExp*. The RegExp that matches the event name.
+
+__Note__: This method is only available on the `EventEmitter` object, not on its instances.
+
+With `EventEmitter.eventRegex()`, you can get the RegExp representation of a wildcard event. This method just passes the event name you give it to `new RegExp(event)`, after replacing `*` by `.*`. This method is intended for internal use, but may be used publicly.
+
+```javascript
+EventEmitter.eventRegEx("(scope|hello):*");
+// /(scope|hello):.*/
+// Matches: "scope:event", "hello:other-event"
+// but not: "event", "world:event"
+```
+
 
 
 ### new EventEmitter()
