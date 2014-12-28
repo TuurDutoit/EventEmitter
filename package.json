@@ -1,6 +1,6 @@
 {
   "name": "last-eventemitter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "For once and for all: a small, fast and full-featured EventEmitter, for node.js and the browser.",
   "main": "EventEmitter.js",
   "directories": {
