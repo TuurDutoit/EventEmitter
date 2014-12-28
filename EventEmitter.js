@@ -138,7 +138,6 @@
         var func = function() {
             execListener(cb, arguments);
             count++;
-            console.log(count);
             if(count === amount) {
                 self.removeListener(event, this);
             }
@@ -261,9 +260,7 @@
     var Namespace = function(emitter, scope) {
         var namespace = {
             emitter: emitter,
-            scope: scope,
-            execListener: emitter.execListener,
-            eventRegex: emitter.eventRegex
+            scope: scope
         };
         scope += ":";
         
@@ -284,8 +281,8 @@
             return this;
         }
         
-        namespace.many = namespace.addManyListener = function(event, cb) {
-            emitter.addManyListener(scope+event, cb);
+        namespace.many = namespace.addManyListener = function(event, cb, amount) {
+            emitter.addManyListener(scope+event, cb, amount);
             return this;
         }
         
@@ -296,24 +293,19 @@
         
         namespace.offAll = namespace.removeAllListeners = function(event) {
             emitter.removeAllListeners(scope + (event ? event : "*"));
-            
             return this;
         }
         
         namespace.count = namespace.countListeners = function(event) {
-            emitter.countListeners(scope + (event ? event : "*"));
-            
-            return this;
+            return emitter.countListeners(scope + (event ? event : "*"));
         }
         
         namespace.listeners = namespace.getListeners = function(event) {
-            emitter.getListeners(scope + (event ? event : "*"));
-            
-            return this;
+            return emitter.getListeners(scope + (event ? event : "*"));
         }
         
         namespace.namespace = function(name) {
-            return Namespace(scope+name, emitter);
+            return Namespace(emitter, scope+name);
         }
         
         

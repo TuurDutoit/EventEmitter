@@ -19,14 +19,14 @@ describe("EventEmitter", function() {
     
     
     
-    it("has a .regexs property", function() {
-        expect(EventEmitter.regexs).toBeDefined();
-        expect(EventEmitter.regexs).toEqual({});
-    });
-    
     it("has a #_events property", function() {
         expect(ee._events).toBeDefined();
         expect(ee._events).toEqual({});
+    });
+    
+    it("has a .regexs property", function() {
+        expect(EventEmitter.regexs).toBeDefined();
+        expect(EventEmitter.regexs).toEqual({});
     });
     
     
