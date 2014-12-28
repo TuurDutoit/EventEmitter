@@ -18,7 +18,7 @@
     "use strict";
 
 
-    var EventEmitter = function() {
+    var EventEmitter = function EventEmitter() {
         this._events = {};
         this._regexs = {};
         
