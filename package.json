@@ -1,0 +1,31 @@
+{
+  "name": "last-eventemitter",
+  "version": "1.0.0",
+  "description": "For once and for all: a small, fast and full-featured EventEmitter, for node.js and the browser.",
+  "main": "EventEmitter.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jasmine JASMINE_CONFIG_PATH=test/jasmine.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TuurDutoit/EventEmitter.git"
+  },
+  "keywords": [
+    "EventEmitter",
+    "event",
+    "emitter",
+    "wildcard",
+    "namespace",
+    "handleEvent",
+    "browser"
+  ],
+  "author": "Tuur Dutoit",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TuurDutoit/EventEmitter/issues"
+  },
+  "homepage": "https://github.com/TuurDutoit/EventEmitter"
+}
