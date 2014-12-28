@@ -1,0 +1,16 @@
+{
+  "name": "last-eventemitter",
+  "repository": "TuurDutoit/EventEmitter",
+  "version": "1.0.0",
+  "keywords": [
+    "EventEmitter",
+    "event",
+    "emitter",
+    "wildcard",
+    "namespace",
+    "handleEvent",
+    "browser"
+  ],
+  "scripts": ["EventEmitter.js"],
+  "license": "MIT"
+}

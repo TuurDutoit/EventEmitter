@@ -11,6 +11,14 @@ module.exports = function(grunt) {
                 exec: "jasmine JASMINE_CONFIG_PATH=test/jasmine.json"
             }
         },
+        bump: {
+            options: {
+                files: ["package.json", "bower.json", "component.json"],
+                commitFiles: ["package.json", "bower.json", "component.json"],
+                tagName: "%VERSION%",
+                push: false
+            }
+        },
         watch: {
             main: {
                 files: "EventEmitter.js",
