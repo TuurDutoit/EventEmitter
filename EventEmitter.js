@@ -1,3 +1,9 @@
+/*
+ * EventEmitter v1.1.2
+ * 
+ * By Tuur Dutoit <me@tuurdutoit.be>
+ * Distributed in some package managers as last-eventemitter
+ */
 
 (function (factory) {
     "use strict";
