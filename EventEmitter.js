@@ -59,6 +59,7 @@
     }
     
     var Regexps = EventEmitter.regexps = {};
+    
     var eventRegexp = EventEmitter.eventRegexp = function(event) {
         if(!Regexps[event]) {
             Regexps[event] = new RegExp("^"+event.replace("*", ".*")+"$");
