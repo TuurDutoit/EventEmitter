@@ -15,7 +15,8 @@ module.exports = function(grunt) {
             options: {
                 files: ["package.json", "bower.json", "component.json"],
                 commitFiles: ["package.json", "bower.json", "component.json"],
-                tagName: "%VERSION%"
+                tagName: "%VERSION%",
+                pushTo: "origin"
             }
         },
         watch: {
