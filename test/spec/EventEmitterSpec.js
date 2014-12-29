@@ -45,9 +45,9 @@
             expect(ee._events).toEqual({});
         });
 
-        it("has a .regexs property", function() {
-            expect(EventEmitter.regexs).toBeDefined();
-            expect(EventEmitter.regexs).toEqual({});
+        it("has a .regexps property", function() {
+            expect(EventEmitter.regexps).toBeDefined();
+            expect(EventEmitter.regexps).toEqual({});
         });
 
 
@@ -91,18 +91,18 @@
         });
 
 
-        describe(".eventRegex", function() {
+        describe(".eventRegexp", function() {
             it("returns a RegExp", function() {
-                var regex = EventEmitter.eventRegex("scope:*");
+                var regexp = EventEmitter.eventRegexp("scope:*");
 
-                expect(regex).toEqual(jasmine.any(RegExp));
+                expect(regexp).toEqual(jasmine.any(RegExp));
             });
 
             it("returns the right RegExp", function() {
-                var regex = EventEmitter.eventRegex("scope:*");
+                var regexp = EventEmitter.eventRegexp("scope:*");
                 var right = /^scope:.*$/;
 
-                expect(regex.toString()).toEqual(right.toString());
+                expect(regexp.toString()).toEqual(right.toString());
             });
         });
 
@@ -177,8 +177,8 @@
             it("adds RegExps to the _regexs", function() {
                 insertStub();
 
-                expect(ee._regexs.event).toBeDefined();
-                expect(ee._regexs.event.toString()).toBe(/^event$/.toString());
+                expect(EventEmitter.regexps.event).toBeDefined();
+                expect(EventEmitter.regexps.event.toString()).toBe(/^event$/.toString());
             });
         });
 

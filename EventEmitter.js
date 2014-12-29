@@ -58,13 +58,13 @@
         }
     }
     
-    var Regexs = EventEmitter.regexs = {};
-    var eventRegex = EventEmitter.eventRegex = function(event) {
-        if(!Regexs[event]) {
-            Regexs[event] = new RegExp("^"+event.replace("*", ".*")+"$");
+    var Regexps = EventEmitter.regexps = {};
+    var eventRegexp = EventEmitter.eventRegexp = function(event) {
+        if(!Regexps[event]) {
+            Regexps[event] = new RegExp("^"+event.replace("*", ".*")+"$");
         }
         
-        return Regexs[event];
+        return Regexps[event];
     }
     
     
@@ -82,12 +82,12 @@
     function(event) {
         var args = copyArray(arguments, 1);
         args.push(event);
-        var regex1 = eventRegex(event);
+        var regexp1 = eventRegexp(event);
         
         outer:
         for(var ev in this._events) {
-            var regex2 = eventRegex(ev);
-            if(regex2.test(event) || regex1.test(ev)) {
+            var regexp2 = eventRegexp(ev);
+            if(regexp2.test(event) || regexp1.test(ev)) {
                 var listeners = this._events[ev];
                 for(var i = 0, len = listeners.length; i < len; i++) {
                     var res = execListener(listeners[i], args, event);
@@ -109,7 +109,7 @@
             this._events[event] = [];
         }
         this._events[event].push(cb);
-        this._regexs[event] = eventRegex(event);
+        eventRegexp(event);
         this.emit("newListener", event, cb);
         
         return this;
@@ -150,10 +150,10 @@
     EventEmitter.prototype.removeListener =
     EventEmitter.prototype.removeEventListener =
     function(event, cb, all) {
-        var regex = eventRegex(event);
+        var regexp = eventRegexp(event);
         if(all) {
             for(var ev in this._events) {
-                if(regex.test(ev)) {
+                if(regexp.test(ev)) {
                     var listeners = this._events[ev];
                     var result = [];
                     for(var i = 0, len = listeners.length; i < len; i++) {
@@ -167,7 +167,7 @@
         }
         else {
             for(var ev in this._events) {
-                if(regex.test(ev)) {
+                if(regexp.test(ev)) {
                     var index = this._events[ev].indexOf(cb);
                     if(index > -1) {
                         this._events[ev].splice(index, 1);
@@ -184,9 +184,9 @@
     EventEmitter.prototype.removeAllListeners =
     function(event) {
         if(event) {
-            var regex = eventRegex(event);
+            var regexp = eventRegexp(event);
             for(var ev in this._events) {
-                if(regex.test(ev)) {
+                if(regexp.test(ev)) {
                     this._events[ev] = [];
                 }
             }
@@ -204,10 +204,10 @@
         var sum = 0;
         
         if(event) {
-            var regex1 = eventRegex(event);
+            var regexp1 = eventRegexp(event);
             for(var ev in this._events) {
-                var regex2 = eventRegex(ev);
-                if(regex2.test(event) || regex1.test(ev)) {
+                var regexp2 = eventRegexp(ev);
+                if(regexp2.test(event) || regexp1.test(ev)) {
                     sum += this._events[ev].length;
                 }
             }
@@ -227,10 +227,10 @@
         var listeners = [];
         
         if(event) {
-            var regex1 = eventRegex(event);
+            var regexp1 = eventRegexp(event);
             for(var ev in this._events) {
-                var regex2 = eventRegex(ev);
-                if(regex2.test(event) || regex1.test(ev)) {
+                var regexp2 = eventRegexp(ev);
+                if(regexp2.test(event) || regexp1.test(ev)) {
                     listeners.push.apply(listeners, this._events[ev]);
                 }
             }
