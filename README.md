@@ -11,7 +11,7 @@ Apart from the usual stuff, `EventEmitter` features:
 6. extensive tests, powered by [Jasmine (v2.1)][jasmine]
 7. support for your package manager
 
-And all this in 3.2kB (minified) or 1050 bytes (gzipped)!
+And all this in 3.2kB (minified) or 1067 bytes (gzipped)!
 
 
 ## Table of Contents
