@@ -49,6 +49,11 @@
             expect(EventEmitter.regexps).toBeDefined();
             expect(EventEmitter.regexps).toEqual({});
         });
+        
+        it("has a .Namespace property", function() {
+            expect(EventEmitter.Namespace).toBeDefined();
+            expect(typeof EventEmitter.Namespace).toBe("function");
+        })
 
 
         describe(".execListener", function() {

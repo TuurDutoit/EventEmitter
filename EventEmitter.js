@@ -1,5 +1,5 @@
 /*
- * EventEmitter v1.1.2
+ * EventEmitter v1.2.0
  * 
  * By Tuur Dutoit <me@tuurdutoit.be>
  * Distributed in some package managers as last-eventemitter
@@ -263,11 +263,12 @@
      * Create a namespace / scope on EventEmitters
      */
     
-    var Namespace = function(emitter, scope) {
-        var namespace = {
-            emitter: emitter,
-            scope: scope
-        };
+    var Namespace = function Namespace(emitter, scope) {
+        var namespace = this;
+        
+        namespace.emitter = emitter;
+        namespace.scope = scope;
+        
         scope += ":";
         
         
@@ -311,7 +312,7 @@
         }
         
         namespace.namespace = function(name) {
-            return Namespace(emitter, scope+name);
+            return new Namespace(emitter, scope+name);
         }
         
         
@@ -319,8 +320,11 @@
     }
     
     
+    EventEmitter.Namespace = Namespace;
+    
+    
     EventEmitter.prototype.namespace = function(scope) {
-        return Namespace(this, scope);
+        return new Namespace(this, scope);
     }
     
     

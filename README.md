@@ -40,6 +40,7 @@ And all this in 3.2kB (minified) or 1050 bytes (gzipped)!
     * [#count/countListeners](#countcountlisteners-string-event-)
     * [#listeners/getListeners](#listenersgetlisteners-string-event-)
     * [#namespace](#namespace-string-scope)
+    * [.Namespace](#EventEmitter-emitter-string-scope)
     * [.execListener](#execlistener-listener-listener-arrayany-args)
     * [.eventRegexp](#eventregexp-string-event)
     * [.regexps](#regexps--object)
@@ -355,11 +356,25 @@ ee.listeners();
 ### #namespace (string: scope)
 __scope__: *string* The name of the scope.
 
-Use the `namespace` method to create a scoped emitter. It has the same methods as EventEmitter (though it doesn't inherit from it) and emits events on its parent, but in a scope, like this: `<scope>:event`.
+Use the `namespace` method to create a scoped emitter. Read [.Namespace](#namespace-eventemitter-emitter-string-scope) for more info.
 
 ```javascript
-var scope = ee.namespace("scope");
-scope.emit("event");
+var n = ee.namespace("scope");
+n.emit("event");
+
+//emits the 'scope:event' event on ee.
+```
+
+
+### .Namespace (EventEmitter: emitter, string: scope)
+__emitter__: *EventEmitter* The EventEmitter on which to emit (scoped) events.
+__scope__: *string* The name of the scope.
+
+A Namespace emits events prefixed by `<scope>:`. It has the same API as EventEmitter, but it doesn't inherit from it, so it emits events on its parent (`emitter`), scoped like this: `<scope>:event`.
+
+```javascript
+var namespace = new EventEmitter.Namespace(ee, "scope");
+namespace.emit("event");
 
 //emits the 'scope:event' event on ee.
 ```
