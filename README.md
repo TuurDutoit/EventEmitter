@@ -35,11 +35,11 @@ And all this in 3.2kB (minified) or 1050 bytes (gzipped)!
     * [#once/addOnceListener](#onceaddoncelistener-string-event-listener-listener)
     * [#many/addManyListener](#manyaddmanylistener-string-event-listener-listener-int-times)
     * [#emit/fire/trigger](#emitfiretrigger-string-event-any-arg1-any-arg2)
-    * [#off/removeListener/removeEventListener](#offremovelistenerremoveeventlistener-stringevent-listener-listener-bool-all-false)
+    * [#off/removeListener/removeEventListener](#offremovelistenerremoveeventlistener-string-event-listener-listener-bool-all-false)
     * [#offAll/removeAllListeners](#offallremovealllisteners-string-event-)
     * [#count/countListeners](#countcountlisteners-string-event-)
     * [#listeners/getListeners](#listenersgetlisteners-string-event-)
-    * [#namespace](#namespace-stringscope)
+    * [#namespace](#namespace-string-scope)
     * [.execListener](#execlistener-listener-listener-arrayany-args)
     * [.eventRegexp](#eventregexp-string-event)
     * [.regexps](#regexps--object)
@@ -247,7 +247,7 @@ ee.emit("scope:event");
 ee.emit("event", "Tuur Dutoit");
 ```
 
-### #off/removeListener/removeEventListener (string:event, Listener: listener, [bool: all (false)])
+### #off/removeListener/removeEventListener (string: event, Listener: listener, [bool: all (false)])
 __event__: *string*. The event to remove the listener from. May contain wildcards.  
 __listener__: *Listener*. The listener to remove.  
 __all__: *bool, optional (false)*. Whether to remove all instances of the listener.  
