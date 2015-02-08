@@ -38,7 +38,8 @@ And all this in 3.2kB (minified) or 1050 bytes (gzipped)!
     * [#off/removeListener/removeEventListener](#offremovelistenerremoveeventlistener-stringevent-listener-listener-bool-all-false)
     * [#offAll/removeAllListeners](#offallremovealllisteners-string-event-)
     * [#count/countListeners](#countcountlisteners-string-event-)
-    * [#listeners/getListeners](##listenersgetlisteners-string-event-)
+    * [#listeners/getListeners](#listenersgetlisteners-string-event-)
+    * [#namespace](#namespace-stringscope)
     * [.execListener](#execlistener-listener-listener-arrayany-args)
     * [.eventRegexp](#eventregexp-string-event)
     * [.regexps](#regexps--object)
@@ -348,6 +349,19 @@ ee.on("other-event", function listener2(){...});
 
 // [ function listener1(){...}, function listener2(){...} ]
 ee.listeners();
+```
+
+
+### #namespace (string: scope)
+__scope__: *string* The name of the scope.
+
+Use the `namespace` method to create a scoped emitter. It has the same methods as EventEmitter (though it doesn't inherit from it) and emits events on its parent, but in a scope, like this: `<scope>:event`.
+
+```javascript
+var scope = ee.namespace("scope");
+scope.emit("event");
+
+//emits the 'scope:event' event on ee.
 ```
 
 
