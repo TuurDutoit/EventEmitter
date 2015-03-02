@@ -24,8 +24,20 @@
     "use strict";
 
 
-    var EventEmitter = function EventEmitter() {
+    var EventEmitter = function EventEmitter(events) {
         this._events = {};
+
+        for(var event in events) {
+            if(events[event] instanceof Array) {
+                var listeners = events[event];
+                for(var i = 0, len = listeners.length; i < len; i++) {
+                    this.addEventListener(event, listeners[i]);
+                }
+            }
+            else {
+                this.addEventListener(event, events[event]);
+            }
+        }
         
         return this;
     }
