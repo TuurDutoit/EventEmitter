@@ -25,7 +25,10 @@
 
 
     var EventEmitter = function EventEmitter(events) {
-        this._events = {};
+        this._events = {
+            proxies: [],
+            listeners: []
+        };
 
         for(var event in events) {
             if(events[event] instanceof Array) {
@@ -57,10 +60,10 @@
             start = 0;
         }
         if(!end) {
-            end = arr.length;
+            end = arr.length-1;
         }
         
-        for(var i = start; i < end; i++) {
+        for(var i = start; i < end+1; i++) {
             result.push(arr[i]);
         }
         
@@ -69,7 +72,7 @@
     
     var execListener = EventEmitter.execListener = function(cb, args) {
         if(typeof cb === "function") {
-            return cb.apply(cb, args);
+            return cb.apply(cb._context || cb, args);
         }
         else if(typeof cb === "object" && typeof cb.handleEvent === "function") {
             return cb.handleEvent.apply(cb, args);
@@ -98,21 +101,26 @@
     EventEmitter.prototype.emit =
     EventEmitter.prototype.fire =
     EventEmitter.prototype.trigger =
-    function(event) {
-        var args = copyArray(arguments, 1);
-        args.push(event);
+    function(event, args) {
         var regexp1 = eventRegexp(event);
         
         outer:
         for(var ev in this._events) {
             var regexp2 = eventRegexp(ev);
             if(regexp2.test(event) || regexp1.test(ev)) {
-                var listeners = this._events[ev];
+                var listeners = this._events[ev].listeners;
                 for(var i = 0, len = listeners.length; i < len; i++) {
                     var res = execListener(listeners[i], args, event);
                     if(res === false) {
                         break outer;
                     }
+                }
+                
+                var proxies = this._events[ev].proxies;
+                for(var i = 0, len = proxies.length; i < len; i++) {
+                    var proxy = proxies[i];
+                    var scopedEvent = (proxy.scope ? proxy.scope+":" : "") + ev;
+                    proxy.emitter.emit(scopedEvent, args);
                 }
             }
         }
