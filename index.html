@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Eventemitter by TuurDutoit</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Eventemitter</h1>
+        <h2>The last EventEmitter you&#39;ll ever need. Small, fast, full-featured, for node.js and the browser.</h2>
+        <a href="https://github.com/TuurDutoit/EventEmitter" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a id="eventemitter" class="anchor" href="#eventemitter" aria-hidden="true"><span class="octicon octicon-link"></span></a>EventEmitter</h1>
+
+<p>The last EventEmitter you'll ever need. Small, fast, full-featured, for node.js and the browser.<br>
+Apart from the usual stuff, <code>EventEmitter</code> features:
+1. <code>handleEvent()</code> objects
+2. wildcards
+3. namespaces
+4. an API you already know
+5. excellent documentation
+6. extensive tests, powered by <a href="http://jasmine.github.io/">Jasmine (v2.1)</a>
+7. support for your package manager</p>
+
+<p>And all this in 3.2kB (minified) or 1067 bytes (gzipped)!</p>
+
+<h2>
+<a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span class="octicon octicon-link"></span></a>Table of Contents</h2>
+
+<ul>
+<li>
+<a href="#getting-a-copy">Getting a copy</a>
+
+<ul>
+<li><a href="#source">Source</a></li>
+<li><a href="#npm">NPM</a></li>
+<li><a href="#bower">Bower</a></li>
+<li><a href="#component">Component</a></li>
+</ul>
+</li>
+<li>
+<a href="#using-it-in-your-page">Using it in your page</a>
+
+<ul>
+<li><a href="#browser">Browser</a></li>
+<li><a href="#amd">AMD</a></li>
+<li><a href="#nodejs--commonjs">node.js / CommonJS</a></li>
+</ul>
+</li>
+<li><a href="#contributing">Contributing</a></li>
+<li>
+<a href="#notes">Notes</a>
+
+<ul>
+<li><a href="#wildcards">Wildcards</a></li>
+<li><a href="#listeners">Listeners</a></li>
+</ul>
+</li>
+<li>
+<a href="#api">API</a>
+
+<ul>
+<li><a href="#new-eventemitter">new EventEmitter()</a></li>
+<li><a href="#_events--object">#_events</a></li>
+<li><a href="#onaddlisteneraddeventlistener-string-event-listener-listener">#on/addListener/addEventListener</a></li>
+<li><a href="#onceaddoncelistener-string-event-listener-listener">#once/addOnceListener</a></li>
+<li><a href="#manyaddmanylistener-string-event-listener-listener-int-times">#many/addManyListener</a></li>
+<li><a href="#emitfiretrigger-string-event-any-arg1-any-arg2">#emit/fire/trigger</a></li>
+<li><a href="#offremovelistenerremoveeventlistener-string-event-listener-listener-bool-all-false">#off/removeListener/removeEventListener</a></li>
+<li><a href="#offallremovealllisteners-string-event-">#offAll/removeAllListeners</a></li>
+<li><a href="#countcountlisteners-string-event-">#count/countListeners</a></li>
+<li><a href="#listenersgetlisteners-string-event-">#listeners/getListeners</a></li>
+<li><a href="#namespace-string-scope">#namespace</a></li>
+<li><a href="#EventEmitter-emitter-string-scope">.Namespace</a></li>
+<li><a href="#execlistener-listener-listener-arrayany-args">.execListener</a></li>
+<li><a href="#eventregexp-string-event">.eventRegexp</a></li>
+<li><a href="#regexps--object">.regexps</a></li>
+</ul>
+</li>
+<li><a href="#license">License</a></li>
+</ul>
+
+<h2>
+<a id="getting-a-copy" class="anchor" href="#getting-a-copy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting a copy</h2>
+
+<p>There are several ways of obtaining a copy of <code>EventEmitter</code>. You can download the source code from <a href="https://github.com/TuurDutoit/EventEmitter/">GitHub</a>, or use your preferred package manager.</p>
+
+<h3>
+<a id="source" class="anchor" href="#source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Source</h3>
+
+<p>Go to the <a href="https://github.com/TuurDutoit/EventEmitter/">GitHub repo</a>, download the <code>EventEmitter.js</code> or <code>EventEmitter.min.js</code> (minified) scripts and put them somewhere in your project folder.</p>
+
+<h3>
+<a id="npm" class="anchor" href="#npm" aria-hidden="true"><span class="octicon octicon-link"></span></a>NPM</h3>
+
+<p>Make sure you have <a href="http://nodejs.org/">node.js</a> and <a href="https://www.npmjs.com/">npm</a> (which comes with node.js) installed. Then, you can just:</p>
+
+<pre><code>$ npm install --save last-eventemitter
+</code></pre>
+
+<h3>
+<a id="bower" class="anchor" href="#bower" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bower</h3>
+
+<p>Make sure you have <a href="http://bower.io/">Bower</a> installed. Then, you can just:</p>
+
+<pre><code>$ bower install TuurDutoit/EventEmitter
+</code></pre>
+
+<h3>
+<a id="component" class="anchor" href="#component" aria-hidden="true"><span class="octicon octicon-link"></span></a>Component</h3>
+
+<p>Make sure you have <a href="https://github.com/componentjs/component">Component</a> installed. Then, you can just:</p>
+
+<pre><code>$ component install TuurDutoit/EventEmitter
+</code></pre>
+
+<h2>
+<a id="using-it-in-your-page" class="anchor" href="#using-it-in-your-page" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using it in your page</h2>
+
+<p>Again, there are several ways to do this. <code>EventEmitter</code> works with AMD loaders (like <a href="http://requirejs.org/">requirejs</a>), commonJS (used by <a href="http://nodejs.org/">node.js</a>) and in the browser, as the global <code>EventEmitter</code> symbol.</p>
+
+<h3>
+<a id="browser" class="anchor" href="#browser" aria-hidden="true"><span class="octicon octicon-link"></span></a>Browser</h3>
+
+<p>Just include the <code>EventEmitter.js</code> (developement) or <code>EventEmitter.min.js</code> (production) scripts in your page, by appending a <code>&lt;script&gt;</code> tag in the <code>&lt;head&gt;</code>:</p>
+
+<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>path/to/EventEmitter.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+
+<h3>
+<a id="amd" class="anchor" href="#amd" aria-hidden="true"><span class="octicon octicon-link"></span></a>AMD</h3>
+
+<p>Just require it in your code, like so:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-c">//myModule.js</span>
+define(<span class="pl-s"><span class="pl-pds">"</span>path/to/EventEmitter<span class="pl-pds">"</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">EventEmitter</span>) {...});</pre></div>
+
+<p>Note the absence of the <code>.js</code> extension on <code>path/to/EventEmitter</code>!</p>
+
+<h3>
+<a id="nodejs--commonjs" class="anchor" href="#nodejs--commonjs" aria-hidden="true"><span class="octicon octicon-link"></span></a>node.js / commonJS</h3>
+
+<p>Just require it in your code, like so:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-k">var</span> EventEmitter <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">"</span>last-eventemitter<span class="pl-pds">"</span></span>);</pre></div>
+
+<p>Note the absence of the <code>.js</code> extension on <code>path/to/EventEmitter</code>!</p>
+
+<h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p><code>EventEmitter</code> is fully open-source and free as in speech. Please feel free to open issues (in the <a href="https://github.com/TuurDutoit/EventEmitter/issues">issue tracker</a> please) and don't be shy to open a Pull Request! Happy coding!</p>
+
+<h2>
+<a id="notes" class="anchor" href="#notes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Notes</h2>
+
+<h3>
+<a id="wildcards" class="anchor" href="#wildcards" aria-hidden="true"><span class="octicon octicon-link"></span></a>Wildcards</h3>
+
+<p>At the moment the wildcards implementation works with RegExps, which have one major downside: comparing two RegExps (and thus wildcard events) is very difficult. That is why I advise you to use wildcards only with namespaces: use them to wildcard scopes, but not parts of scopes/events. That leads to problems when matching event strings.</p>
+
+<p>Also, wildcards work differently with <code>#off()</code> and <code>#offAll()</code> than with all the other methods. With <code>#off()</code> and <code>#offAll()</code>, the <code>event</code>s passed to those methods are converted to RegExps, and then all the listeners' event strings are matched against these RegExps to determine which should be removed. This prevents the removal of a listener listening to <code>scope:*</code> by calling <code>#offAll("scope:event")</code>, but allows removing a listener listening for <code>scope:event</code> byt calling <code>#offAll("scope:*")</code>.<br>
+With all the other methods, it works a little differently. Here, matches are tested in both ways: the listeners' event strings are matched against the <code>event</code>s RegExp, and the <code>event</code> is tested against the listeners' RegExps. This allows executing a listener listening to <code>scope:*</code> with a call to <code>emit("scope:event")</code>, but it also allows executing one listening to <code>scope:event</code> by calling <code>emit("scope:*")</code>.</p>
+
+<p>I'm working on a way to allow for more complex wildcards, maybe even using RegExps yourself in all the methods, but that is complex, and more importantly, computationally intensive, and thus slow. I hope I can solve the problem, but don't expect that to happen soon.</p>
+
+<h3>
+<a id="listeners" class="anchor" href="#listeners" aria-hidden="true"><span class="octicon octicon-link"></span></a>Listeners</h3>
+
+<p><code>Listener</code>s can be either a normal <code>function</code> or an object with a <code>handleEvent()</code> method (as in the DOM Events API). For more info about <code>handleEvent()</code>, check <a href="https://developer.mozilla.org/en/docs/Web/API/EventTarget.addEventListener">this page</a> (check the 'listener' section).  </p>
+
+<h2>
+<a id="api" class="anchor" href="#api" aria-hidden="true"><span class="octicon octicon-link"></span></a>API</h2>
+
+<p><strong>Note</strong>: A <code>.</code> means a property/method is only available on the <code>EventEmitter</code> object, not on its instances. A <code>#</code> means that a property/method is only available on <code>EventEmitter</code> instances.</p>
+
+<p><strong>Note</strong>: A <code>Listener</code> type means either a normal function or an Object with a <code>handleEvent()</code> method. For more info, check the <a href="#listeners">Listeners</a> section above.</p>
+
+<h3>
+<a id="new-eventemitter" class="anchor" href="#new-eventemitter" aria-hidden="true"><span class="octicon octicon-link"></span></a>new EventEmitter()</h3>
+
+<p><strong><em>return</em></strong>: <em>EventEmitter</em>. Of course.</p>
+
+<p>To begin, create a new instance of <code>EventEmitter</code>. The contructor doesn't expect any arguments.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-k">var</span> ee <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">EventEmitter</span>();</pre></div>
+
+<h3>
+<a id="_events--object" class="anchor" href="#_events--object" aria-hidden="true"><span class="octicon octicon-link"></span></a>#_events | Object</h3>
+
+<p>The <code>#_events</code>object maps event strings to arrays of listeners. It is intended to be used internally, but you can, very cautiously, use it yourself.</p>
+
+<p>An <code>_events</code> object looks like this:</p>
+
+<div class="highlight highlight-javascript"><pre>ee._events <span class="pl-k">=</span> {
+    <span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span><span class="pl-k">:</span> [<span class="pl-k">function</span>(){...}, <span class="pl-k">function</span>(){...}, <span class="pl-k">function</span>(){...}],
+    <span class="pl-s"><span class="pl-pds">"</span>scope:event<span class="pl-pds">"</span></span><span class="pl-k">:</span> [<span class="pl-k">function</span>(){...}],
+    <span class="pl-s"><span class="pl-pds">"</span>scope:*<span class="pl-pds">"</span></span><span class="pl-k">:</span> [<span class="pl-k">function</span>(){...}, <span class="pl-k">function</span>(){...}]
+}</pre></div>
+
+<h3>
+<a id="onaddlisteneraddeventlistener-string-event-listener-listener" class="anchor" href="#onaddlisteneraddeventlistener-string-event-listener-listener" aria-hidden="true"><span class="octicon octicon-link"></span></a>#on/addListener/addEventListener (string: event, Listener: listener)</h3>
+
+<p><strong>event</strong>: <em>string</em>. The event to add the listener to. May contain wildcards.<br>
+<strong>listener</strong>: <em>Listener</em>. The listener to add.<br>
+<strong><em>return</em></strong>: <em>EventEmitter</em>. For chaining.</p>
+
+<p>Use this method to attach an event listener. When the <code>event</code> is fired, the listener will be executed (i.e. passed to <code>EventEmitter.execListener</code>) and the arguments passed to <code>emit()</code> will be passed on to the listener. The last argument will be the event string passed to <code>emit()</code>. If a listener is added multiple times, it will be executed the same amount of times it was added and in the same order as it was added. Also, <code>event</code> may contain wildcards (please read the <a href="#wildcards">Wildcards</a> section).</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-c">// Received event: scope:event</span>
+<span class="pl-c">// Hello, Tuur Dutoit</span>
+ee.on(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">name</span>, <span class="pl-smi">event</span>) {
+    <span class="pl-en">console</span><span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">"</span>Hello, <span class="pl-pds">"</span></span> <span class="pl-k">+</span> name);
+});
+ee.on(<span class="pl-s"><span class="pl-pds">"</span>scope:*<span class="pl-pds">"</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">event</span>) {
+    <span class="pl-en">console</span><span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">"</span>Received event: <span class="pl-pds">"</span></span> <span class="pl-k">+</span> <span class="pl-c1">event</span>);
+});
+
+ee.emit(<span class="pl-s"><span class="pl-pds">"</span>scope:event<span class="pl-pds">"</span></span>);
+ee.emit(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Tuur Dutoit<span class="pl-pds">"</span></span>);</pre></div>
+
+<h3>
+<a id="onceaddoncelistener-string-event-listener-listener" class="anchor" href="#onceaddoncelistener-string-event-listener-listener" aria-hidden="true"><span class="octicon octicon-link"></span></a>#once/addOnceListener (string: event, Listener: listener)</h3>
+
+<p><strong>event</strong>: <em>string</em>. The event to add the listener to. May contain wildcards.<br>
+<strong>listener</strong>: <em>Listener</em>. The listener to add.<br>
+<strong><em>return</em></strong>: <em>EventEmitter</em>. For chaining.</p>
+
+<p>This method does the same as <code>#on()</code>, but it makes sure the listener is only called once: it will remove it after the first call.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-c">// Listener called 1 time.</span>
+<span class="pl-c">// Done.</span>
+<span class="pl-k">var</span> count <span class="pl-k">=</span> <span class="pl-c1">0</span>;
+ee.once(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>, <span class="pl-k">function</span>() {
+    count<span class="pl-k">++</span>;
+    <span class="pl-en">console</span><span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">"</span>Listener called <span class="pl-pds">"</span></span> <span class="pl-k">+</span> count <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span> time.<span class="pl-pds">"</span></span>);
+});
+
+ee.emit(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>);
+ee.emit(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>);
+<span class="pl-en">console</span><span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">"</span>Done.<span class="pl-pds">"</span></span>);</pre></div>
+
+<h3>
+<a id="manyaddmanylistener-string-event-listener-listener-int-times" class="anchor" href="#manyaddmanylistener-string-event-listener-listener-int-times" aria-hidden="true"><span class="octicon octicon-link"></span></a>#many/addManyListener (string: event, Listener: listener, int: times)</h3>
+
+<p><strong>event</strong>: <em>string</em>. The event to add the listener to. May contain wildcards.<br>
+<strong>listener</strong>: <em>Listener</em>. The listener to add.<br>
+<strong>times</strong>: <em>int</em>. The maximum amount of times to call the listener.<br>
+<strong><em>return</em></strong>: <em>EventEmitter</em>. For chaining.</p>
+
+<p>This method does the same as <code>#on()</code>, but makes sure the listener is called a maximum of <code>times</code> times, by removing the listener after the <code>times</code>th call.</p>
+
+<p><strong>Note</strong>: <code>addManyListener</code> is singular!</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-c">// Listener called 1 times.</span>
+<span class="pl-c">// Listener called 2 times.</span>
+<span class="pl-c">// Done.</span>
+<span class="pl-k">var</span> count <span class="pl-k">=</span> <span class="pl-c1">0</span>;
+ee.many(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>, <span class="pl-k">function</span>() {
+    count<span class="pl-k">++</span>;
+    <span class="pl-en">console</span><span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">"</span>Listener called <span class="pl-pds">"</span></span> <span class="pl-k">+</span> count <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span> times.<span class="pl-pds">"</span></span>);
+}, <span class="pl-c1">2</span>);
+
+ee.emit(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>);
+ee.emit(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>);
+ee.emit(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>);
+<span class="pl-en">console</span><span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">"</span>Done.<span class="pl-pds">"</span></span>);</pre></div>
+
+<h3>
+<a id="emitfiretrigger-string-event-any-arg1-any-arg2" class="anchor" href="#emitfiretrigger-string-event-any-arg1-any-arg2" aria-hidden="true"><span class="octicon octicon-link"></span></a>#emit/fire/trigger (string: event, [any: arg1, any: arg2,...])</h3>
+
+<p><strong>event</strong>: <em>string</em>. The event that should be emitted. May contain wildcards.<br>
+<strong>argN</strong>: <em>any</em>. Arguments to pass to the listeners.<br>
+<strong><em>return</em></strong>: <em>EventEmitter</em>. For chaining.</p>
+
+<p>This method emits events, i.e. it executes all the listeners that are listening for <code>event</code> (which may contain wildcards; read the <a href="#wildcards">Wildcards</a> section), passing in all the arguments after <code>event</code>.<br>
+There are two things happening here:
+1. Checking which listeners to call. This is done by checking if the <code>event</code> RegExp matches the listener's event string, <strong>or vice versa</strong>. Read the <a href="#wildcards">Wildcards</a> section for more info.
+2. Executing the listeners. In this stage, all the matching listeners are passed to <code>.execListener()</code> for execution. The <code>args</code> will be set to any arguments that are passed after <code>event</code>, and then <code>event</code> itself is passed as last argument.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-c">// Received event: scope:event</span>
+<span class="pl-c">// Hello, Tuur Dutoit</span>
+ee.on(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">name</span>, <span class="pl-smi">event</span>) {
+    <span class="pl-en">console</span><span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">"</span>Hello, <span class="pl-pds">"</span></span> <span class="pl-k">+</span> name);
+});
+ee.on(<span class="pl-s"><span class="pl-pds">"</span>scope:*<span class="pl-pds">"</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">event</span>) {
+    <span class="pl-en">console</span><span class="pl-c1">.log</span>(<span class="pl-s"><span class="pl-pds">"</span>Received event: <span class="pl-pds">"</span></span> <span class="pl-k">+</span> <span class="pl-c1">event</span>);
+});
+
+ee.emit(<span class="pl-s"><span class="pl-pds">"</span>scope:event<span class="pl-pds">"</span></span>);
+ee.emit(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Tuur Dutoit<span class="pl-pds">"</span></span>);</pre></div>
+
+<h3>
+<a id="offremovelistenerremoveeventlistener-string-event-listener-listener-bool-all-false" class="anchor" href="#offremovelistenerremoveeventlistener-string-event-listener-listener-bool-all-false" aria-hidden="true"><span class="octicon octicon-link"></span></a>#off/removeListener/removeEventListener (string: event, Listener: listener, [bool: all (false)])</h3>
+
+<p><strong>event</strong>: <em>string</em>. The event to remove the listener from. May contain wildcards.<br>
+<strong>listener</strong>: <em>Listener</em>. The listener to remove.<br>
+<strong>all</strong>: <em>bool, optional (false)</em>. Whether to remove all instances of the listener.<br>
+<strong><em>return</em></strong>: <em>EventEmitter</em>. For chaining.</p>
+
+<p>This method removes <code>listener</code> from the list of listeners for <code>event</code>. <code>event</code> may contain wildcards, but these work a little different from <code>#on()</code> and <code>#emit()</code>: here, only the listeners' event strings are matched against <code>event</code>'s RegExp, and not the other way around. For more info, read the <a href="#wildcards">Wildcards</a> section.<br>
+The <code>all</code> argument allows to control the behaviour when a listener has been added multiple times. When <code>all</code> is <code>false</code> (the default), only one instance of the listener is removed. When <code>all</code> is <code>true</code>, all the instances (that match <code>event</code>) will be removed.</p>
+
+<p>With <code>all = false</code>:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-k">var</span> <span class="pl-en">listener</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(){...};
+<span class="pl-c">// Add the listener twice</span>
+ee.on(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>, listener);
+ee.on(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>, listener);
+<span class="pl-c">// Remove one instance</span>
+ee.off(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>, listener);
+<span class="pl-c">// 1</span>
+ee.count(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>);</pre></div>
+
+<p>With <code>all = true</code>:</p>
+
+<div class="highlight highlight-javascript"><pre>ee.on(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>, listener);
+ee.on(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>, listener);
+<span class="pl-c">// Remove all instances</span>
+ee.off(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>, listener, <span class="pl-c1">true</span>);
+<span class="pl-c">// 0</span>
+ee.count(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>);</pre></div>
+
+<h3>
+<a id="offallremovealllisteners-string-event-" class="anchor" href="#offallremovealllisteners-string-event-" aria-hidden="true"><span class="octicon octicon-link"></span></a>#offAll/removeAllListeners ([string: event ("*")])</h3>
+
+<p><strong>event</strong>: <em>string, optional ("*")</em>. The event to remove all listeners from. May contain wildcards.<br>
+<strong><em>return</em></strong>: <em>EventEmitter</em>. For chaining.</p>
+
+<p>This method removes all listeners for a specific <code>event</code> (which may contain wildcards; read the <a href="#wildcards">Wildcards</a> section), or for the whole <code>EventEmitter</code> (if no <code>event</code> is specified).</p>
+
+<p>For a specific event:</p>
+
+<div class="highlight highlight-javascript"><pre>ee.on(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>, <span class="pl-k">function</span>(){...});
+ee.on(<span class="pl-s"><span class="pl-pds">"</span>other-event<span class="pl-pds">"</span></span>, <span class="pl-k">function</span>(){...});
+ee.removeAllListeners(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>);
+
+<span class="pl-c">// 1</span>
+ee.count(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>);</pre></div>
+
+<p>For the whole <code>EventEmitter</code>:</p>
+
+<div class="highlight highlight-javascript"><pre>ee.on(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>, <span class="pl-k">function</span>(){...});
+ee.on(<span class="pl-s"><span class="pl-pds">"</span>other-event<span class="pl-pds">"</span></span>, <span class="pl-k">function</span>(){...});
+ee.offAll();
+
+<span class="pl-c">// 0</span>
+ee.count();</pre></div>
+
+<h3>
+<a id="countcountlisteners-string-event-" class="anchor" href="#countcountlisteners-string-event-" aria-hidden="true"><span class="octicon octicon-link"></span></a>#count/countListeners ([string: event ("*")])</h3>
+
+<p><strong>event</strong>: <em>string, optional ("*")</em> The event for which to count the listeners. May contain wildcards.<br>
+<strong><em>return</em></strong>: <em>int</em> The amount of listener listening for <code>event</code>.</p>
+
+<p>This method counts the listeners that are listening to <code>event</code> (which may contain wildcards; read the <a href="#wildcards">Wildcards</a> section). If no <code>event</code> is specified, it counts all the listeners for the <code>EventEmitter</code>.</p>
+
+<p>For a specific event:</p>
+
+<div class="highlight highlight-javascript"><pre>ee.on(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>, <span class="pl-k">function</span>(){...});
+ee.on(<span class="pl-s"><span class="pl-pds">"</span>other-event<span class="pl-pds">"</span></span>, <span class="pl-k">function</span>(){...});
+
+<span class="pl-c">// 1</span>
+ee.count(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>);</pre></div>
+
+<p>For the whole <code>EventEmitter</code>:</p>
+
+<div class="highlight highlight-javascript"><pre>ee.on(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>, <span class="pl-k">function</span>(){...});
+ee.on(<span class="pl-s"><span class="pl-pds">"</span>other-event<span class="pl-pds">"</span></span>, <span class="pl-k">function</span>(){...});
+
+<span class="pl-c">// 2</span>
+ee.count();</pre></div>
+
+<h3>
+<a id="listenersgetlisteners-string-event-" class="anchor" href="#listenersgetlisteners-string-event-" aria-hidden="true"><span class="octicon octicon-link"></span></a>#listeners/getListeners ([string: event ("*")])</h3>
+
+<p><strong>event</strong>: <em>string, optional ("*")</em>. The event to get the listeners for. May contain wildcards.<br>
+<strong><em>return</em></strong>: <em>Array&lt;Listener&gt;</em>. An array containing all the listeners listening for <code>event</code>.</p>
+
+<p>This method retrieves all the listeners that listen for <code>event</code> (which may contain wildcards; read the <a href="#wildcards">Wildcards</a> section). If no <code>event</code> is specified, it returns all the listeners bound to the <code>EventEmitter</code>. The returned array may contain duplicates (if you added a listener more than once).</p>
+
+<p>For a specific <code>event</code>:</p>
+
+<div class="highlight highlight-javascript"><pre>ee.on(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>, <span class="pl-k">function</span> <span class="pl-en">listener1</span>(){...});
+ee.on(<span class="pl-s"><span class="pl-pds">"</span>other-event<span class="pl-pds">"</span></span>, <span class="pl-k">function</span> <span class="pl-en">listener2</span>(){...});
+
+<span class="pl-c">// [ function listener1(){...} ]</span>
+ee.listener(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>);</pre></div>
+
+<p>For the whole <code>EventEmitter</code>:</p>
+
+<div class="highlight highlight-javascript"><pre>ee.on(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>, <span class="pl-k">function</span> <span class="pl-en">listener1</span>(){...});
+ee.on(<span class="pl-s"><span class="pl-pds">"</span>other-event<span class="pl-pds">"</span></span>, <span class="pl-k">function</span> <span class="pl-en">listener2</span>(){...});
+
+<span class="pl-c">// [ function listener1(){...}, function listener2(){...} ]</span>
+ee.listeners();</pre></div>
+
+<h3>
+<a id="namespace-string-scope" class="anchor" href="#namespace-string-scope" aria-hidden="true"><span class="octicon octicon-link"></span></a>#namespace (string: scope)</h3>
+
+<p><strong>scope</strong>: <em>string</em> The name of the scope.</p>
+
+<p>Use the <code>namespace</code> method to create a scoped emitter. Read <a href="#namespace-eventemitter-emitter-string-scope">.Namespace</a> for more info.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-k">var</span> n <span class="pl-k">=</span> ee.namespace(<span class="pl-s"><span class="pl-pds">"</span>scope<span class="pl-pds">"</span></span>);
+n.emit(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>);
+
+<span class="pl-c">//emits the 'scope:event' event on ee.</span></pre></div>
+
+<h3>
+<a id="namespace-eventemitter-emitter-string-scope" class="anchor" href="#namespace-eventemitter-emitter-string-scope" aria-hidden="true"><span class="octicon octicon-link"></span></a>.Namespace (EventEmitter: emitter, string: scope)</h3>
+
+<p><strong>emitter</strong>: <em>EventEmitter</em> The EventEmitter on which to emit (scoped) events.
+<strong>scope</strong>: <em>string</em> The name of the scope.</p>
+
+<p>A Namespace emits events prefixed by <code>&lt;scope&gt;:</code>. It has the same API as EventEmitter, but it doesn't inherit from it, so it emits events on its parent (<code>emitter</code>), scoped like this: <code>&lt;scope&gt;:event</code>.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-k">var</span> namespace <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">EventEmitter.Namespace</span>(ee, <span class="pl-s"><span class="pl-pds">"</span>scope<span class="pl-pds">"</span></span>);
+namespace.emit(<span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span>);
+
+<span class="pl-c">//emits the 'scope:event' event on ee.</span></pre></div>
+
+<h3>
+<a id="execlistener-listener-listener-arrayany-args" class="anchor" href="#execlistener-listener-listener-arrayany-args" aria-hidden="true"><span class="octicon octicon-link"></span></a>.execListener (Listener: listener, Array&lt;any&gt;: args)</h3>
+
+<p><strong>listener</strong>: <em>Listener</em> The listener to execute.<br>
+<strong>args</strong>: <em>Array&lt;any&gt;</em> The arguments to pass to the listener<br>
+<strong><em>return</em></strong>: <em>any</em>. Anything the listener returns.</p>
+
+<p><strong>Note</strong>: This method is only available on the <code>EventEmitter</code> object, not on its instances!</p>
+
+<p><code>EventEmitter.execListener()</code> executes a listener, <code>apply()</code>ing <code>args</code> to it.<br>
+<code>listener</code> can be a function, or an object with a <code>handleEvent()</code> method. For more info about listeners, check the <a href="#listeners">Listeners</a> section.
+The <code>this</code> in the listener will be set to <code>listener</code> (be it a function or an object; this is default javascript behaviour). This method is intended for internal use, but may be used publicly.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-k">var</span> <span class="pl-en">listener</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">arg1</span>, <span class="pl-smi">arg2</span>){
+    <span class="pl-en">console</span><span class="pl-c1">.log</span>(arg1 <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>, <span class="pl-pds">"</span></span> <span class="pl-k">+</span> arg2);
+    <span class="pl-en">console</span><span class="pl-c1">.log</span>(<span class="pl-v">this</span>);
+}
+<span class="pl-k">var</span> objectListener <span class="pl-k">=</span> {
+    handleEvent<span class="pl-k">:</span> listener
+}
+<span class="pl-k">var</span> args <span class="pl-k">=</span> [<span class="pl-s"><span class="pl-pds">"</span>hello<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>world<span class="pl-pds">"</span></span>];
+
+<span class="pl-c">//hello, world</span>
+<span class="pl-c">//function</span>
+EventEmitter.execListener(listener, [<span class="pl-s"><span class="pl-pds">"</span>hello<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>world<span class="pl-pds">"</span></span>]);
+
+<span class="pl-c">//hello, world</span>
+<span class="pl-c">//object</span>
+EventEmitter.execListener(objectListener, [<span class="pl-s"><span class="pl-pds">"</span>hello<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>world<span class="pl-pds">"</span></span>]);</pre></div>
+
+<h3>
+<a id="eventregexp-string-event" class="anchor" href="#eventregexp-string-event" aria-hidden="true"><span class="octicon octicon-link"></span></a>.eventRegexp (string: event)</h3>
+
+<p><strong>event</strong>: <em>string</em>. The event name to convert to a RegExp.<br>
+<strong><em>return</em></strong>: <em>RegExp</em>. The RegExp that matches the event name.</p>
+
+<p><strong>Note</strong>: This method is only available on the <code>EventEmitter</code> object, not on its instances!</p>
+
+<p>With <code>EventEmitter.eventRegexp()</code>, you can get the RegExp representation of a wildcard event. This method just passes the event name you give it to <code>new RegExp(event)</code>, after replacing <code>*</code> by <code>.*</code>. This method is intended for internal use, but may be used publicly.<br>
+This method uses the <code>EventEmitter.regexps</code> object as a sort of cache: any event strings that have not yet passed <code>eventRegexp()</code> will be added to it (with their RegExp representation), and <code>EventRegexp()</code> will return the RegExp that has been stored in <code>regexps</code> if the event string can be found there.</p>
+
+<p><strong>Note</strong>: When matching wildcard events with other wildcard events, weird things can happen. I'm working on a way to solve this. In the meantime, take a look at the <a href="#wildcards">Wildcards</a> section.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-c">// /scope:.*/</span>
+EventEmitter.eventRegexp(<span class="pl-s"><span class="pl-pds">"</span>scope:*<span class="pl-pds">"</span></span>);
+<span class="pl-c">// Matches: "scope:event", "scope:other-event"</span>
+<span class="pl-c">// but not: "event", "world:event"</span></pre></div>
+
+<h3>
+<a id="regexps--object" class="anchor" href="#regexps--object" aria-hidden="true"><span class="octicon octicon-link"></span></a>.regexps | Object</h3>
+
+<p><strong>Note</strong>: This property is only available on the <code>EventEmitter</code> object, not on its instances!</p>
+
+<p><code>EventEmitter.regexps</code> is an object matching event strings and their RegExp representations. This is only used by <code>EventEmitter.eventRegexp()</code> as a sort of cache, to prevent memoty leaks.</p>
+
+<p>It looks like this:</p>
+
+<div class="highlight highlight-javascript"><pre>EventEmitter.regexps <span class="pl-k">=</span> {
+    <span class="pl-s"><span class="pl-pds">"</span>event<span class="pl-pds">"</span></span><span class="pl-k">:</span><span class="pl-sr"> <span class="pl-pds">/</span><span class="pl-k">^</span>event<span class="pl-k">$</span><span class="pl-pds">/</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>scope:*<span class="pl-pds">"</span></span><span class="pl-k">:</span> /<span class="pl-k">^</span>scope<span class="pl-k">:</span>.<span class="pl-k">*</span>$
+}</pre></div>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>The MIT License (MIT)</p>
+
+<p>Copyright (c) 2014-2015 Tuur Dutoit</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/TuurDutoit/EventEmitter/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/TuurDutoit/EventEmitter/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/TuurDutoit/EventEmitter"></a> is maintained by <a href="https://github.com/TuurDutoit">TuurDutoit</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-62013657-2");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
