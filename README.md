@@ -3,6 +3,7 @@ EventEmitter
 
 The last EventEmitter you'll ever need. Small, fast, full-featured, for node.js and the browser.  
 Apart from the usual stuff, `EventEmitter` features:
+
 1. `handleEvent()` objects
 2. wildcards
 3. namespaces
